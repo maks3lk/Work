@@ -1,5 +1,4 @@
 ﻿<?php
-
 /*
 ЗАДАНИЕ 1
 - Проверьте, была ли корректно отправлена форма
@@ -11,19 +10,25 @@
 if(!empty($_POST)){
 	if(is_numeric($_POST[num1]) and is_numeric($_POST[num2]))
 	{ 
-		if($_POST[operator]=="+") {$x=$_POST[num1]+$_POST[num2];}
-		elseif($_POST[operator]=="-"){$x=$_POST[num1]-$_POST[num2];}
-		elseif($_POST[operator]=="*"){$x=$_POST[num1]*$_POST[num2];}
+		$a=$_POST[num1];
+		$b=$_POST[num2];
+		if($_POST[operator]=="+") $x=$a+$b;
+		elseif($_POST[operator]=="-") $x=$a-$b;
+		elseif($_POST[operator]=="*") $x=$a*$b;
+		elseif($_POST[operator]=="**") $x=$a**$b;
 		elseif($_POST[operator]=="/")
 		{
-			if($_POST[num2]!=0) {$x=$_POST[num1]/$_POST[num2];}
+			if($_POST[num2]!=0) $x=$a/$b;
+			else $x="На 0 делить нельзя";
 		}
 		elseif($_POST[operator]=="%")
 		{
-			if($_POST[num2]!=0) {$x=$_POST[num1]%$_POST[num2];}
+			if($_POST[num2]!=0) $x=$a%$b;
+			else $x="На 0 делить нельзя";
 		}
-		elseif($_POST[operator]=="**"){$x=$_POST[num1]**$_POST[num2];}
-	}	
+		else $x="Некоректный оператор";
+		
+	}else $x="Некоректные числа";	
 }
 ?>
 
@@ -44,12 +49,13 @@ if(!empty($_POST)){
 - Если результат существует, выведите его
 */
 if(!empty($_POST)){
-	if($x!=null)echo "Ответ: ".$x;
-	else echo"Некоректные данные";
+	if(is_numeric($x)) echo "Ответ: ".$x;
+	else echo $x;
 }
 ?>
 
 <form method="post">
+<br />
 
 Число 1:<br />
 <input type="text" name="num1" /><br /><br />
